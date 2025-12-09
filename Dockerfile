@@ -7,6 +7,7 @@ ENV HUSKY=0
 ENV CI=true
 
 # Use pnpm
+# FIX: Update corepack first to get new pnpm security keys (Avoids "Cannot find matching keyid" error)
 RUN npm install -g corepack@latest && corepack enable && corepack prepare pnpm@9.15.9 --activate
 
 # Ensure git is available for build and runtime scripts
@@ -66,6 +67,8 @@ COPY --from=prod-deps /app/build /app/build
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=prod-deps /app/package.json /app/package.json
 COPY --from=prod-deps /app/bindings.sh /app/bindings.sh
+# FIX: Copy worker configuration so bindings.sh can read variable names
+COPY --from=prod-deps /app/worker-configuration.d.ts /app/worker-configuration.d.ts
 
 # Pre-configure wrangler to disable metrics
 RUN mkdir -p /root/.config/.wrangler && \
