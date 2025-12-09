@@ -16,6 +16,12 @@ export default defineConfig((config) => {
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     },
+    // Correction pour "Named export 'renderToReadableStream' not found"
+    resolve: {
+      alias: {
+        'react-dom/server': 'react-dom/server.edge',
+      },
+    },
     build: {
       target: 'esnext',
     },
