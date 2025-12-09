@@ -16,10 +16,10 @@ export default defineConfig((config) => {
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     },
-    // Correction pour "Named export 'renderToReadableStream' not found"
+    // CORRECTION ICI : Utilisation de .browser au lieu de .edge pour une meilleure compatibilité
     resolve: {
       alias: {
-        'react-dom/server': 'react-dom/server.edge',
+        'react-dom/server': 'react-dom/server.browser',
       },
     },
     build: {
