@@ -16,7 +16,8 @@ export default defineConfig((config) => {
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     },
-    // CORRECTION ICI : Utilisation de .browser au lieu de .edge pour une meilleure compatibilité
+    // CORRECTION : Utilisation de 'react-dom/server.browser' qui contient renderToReadableStream
+    // et qui est compatible avec le build standard (évite l'erreur "Missing ./server.edge")
     resolve: {
       alias: {
         'react-dom/server': 'react-dom/server.browser',
